@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>RuhLife — 3D Nature World</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ HOME ============ -->
+<div class="screen" id="screen-home">
+  <img id="home-logo" src="assets/logo.png" alt="RuhLife logo">
+  <div class="home-title">Ruh<span class="g">Life</span></div>
+  <div class="home-tag" data-i18n="app_tagline">Your living 3D nature world</div>
+  <div class="home-btns">
+    <button class="btn" id="btn-new" data-i18n="btn_new_world">Create New World</button>
+    <button class="btn ghost" id="btn-continue" data-i18n="btn_continue">Continue</button>
+    <button class="btn ghost" id="btn-worlds" data-i18n="btn_my_worlds">My Worlds</button>
+    <button class="btn ghost" id="btn-help" data-i18n="btn_how_to">How to Play</button>
+    <button class="btn ghost" id="btn-settings" data-i18n="btn_settings">Settings</button>
+  </div>
+  <div class="fact-card"><b data-i18n="fact_title">Today's Nature Fact</b><p id="fact-text"></p></div>
+  <div class="home-row">
+    <button class="icon-btn" id="btn-lang">EN | हिंदी</button>
+    <button class="icon-btn" id="btn-exit">⏻</button>
+  </div>
+</div>
+
+<!-- ============ SETUP ============ -->
+<div class="screen" id="screen-setup">
+  <div class="page">
+    <button class="back-link" id="btn-setup-back">← <span data-i18n="back">Back</span></button>
+    <h2 data-i18n="setup_title">Create New World</h2>
+    <div class="opt-label" data-i18n="world_name">World name</div>
+    <input class="text-input" id="setup-name" maxlength="30" data-i18n-ph="world_name_ph" placeholder="e.g. Green Valley">
+    <div class="opt-label" data-i18n="size">World size</div>
+    <div class="opt-row">
+      <button class="opt size-opt" data-v="s" data-i18n="size_s">Small</button>
+      <button class="opt size-opt sel" data-v="m" data-i18n="size_m">Medium</button>
+      <button class="opt size-opt" data-v="l" data-i18n="size_l">Large</button>
+    </div>
+    <div class="opt-label" data-i18n="env">Environment</div>
+    <div class="env-grid">
+      <button class="env-card sel" data-v="forest"><i>🌲</i><span data-i18n="env_forest">Forest</span></button>
+      <button class="env-card" data-v="grassland"><i>🌾</i><span data-i18n="env_grassland">Grassland</span></button>
+      <button class="env-card" data-v="island"><i>🏝️</i><span data-i18n="env_island">Island</span></button>
+      <button class="env-card" data-v="lake"><i>🏞️</i><span data-i18n="env_lake">Lake</span></button>
+    </div>
+    <div class="opt-label" data-i18n="mode">Game mode</div>
+    <div class="opt-row">
+      <button class="opt mode-opt sel" data-v="sandbox"><span data-i18n="mode_sandbox">Peaceful Sandbox</span><small data-i18n="mode_sandbox_d">Relax, build and grow freely</small></button>
+      <button class="opt mode-opt" data-v="challenge"><span data-i18n="mode_challenge">Ecosystem Challenge</span><small data-i18n="mode_challenge_d">Complete goals, keep nature balanced</small></button>
+    </div>
+    <div class="opt-label" data-i18n="quality">Graphics quality</div>
+    <div class="opt-row">
+      <button class="opt q-opt" data-v="low" data-i18n="q_low">Low</button>
+      <button class="opt q-opt sel" data-v="med" data-i18n="q_med">Medium</button>
+      <button class="opt q-opt" data-v="high" data-i18n="q_high">High</button>
+    </div>
+    <button class="btn" id="btn-start-world" data-i18n="start_world">Start World</button>
+  </div>
+</div>
+
+<!-- ============ WORLDS ============ -->
+<div class="screen" id="screen-worlds">
+  <div class="page">
+    <button class="back-link" id="btn-worlds-back">← <span data-i18n="back">Back</span></button>
+    <h2 data-i18n="worlds_title">My Worlds</h2>
+    <div id="worlds-list"></div>
+  </div>
+</div>
+
+<!-- ============ HELP ============ -->
+<div class="screen" id="screen-help">
+  <div class="page">
+    <button class="back-link" id="btn-help-back">← <span data-i18n="back">Back</span></button>
+    <h2 data-i18n="btn_how_to">How to Play</h2>
+    <div id="help-content"></div>
+  </div>
+</div>
+
+<!-- ============ SETTINGS ============ -->
+<div class="screen" id="screen-settings">
+  <div class="page">
+    <button class="back-link" id="btn-settings-back">← <span data-i18n="back">Back</span></button>
+    <h2 data-i18n="set_title">Settings</h2>
+    <div class="set-row">
+      <label data-i18n="s_lang">Language</label>
+      <button class="icon-btn" id="set-lang-toggle"><span id="set-lang-cur">English</span> ⇄</button>
+    </div>
+    <div class="opt-label" data-i18n="s_quality">Graphics quality</div>
+    <div class="opt-row" style="margin-bottom:10px">
+      <button class="opt sq-opt" data-v="low" data-i18n="q_low">Low</button>
+      <button class="opt sq-opt" data-v="med" data-i18n="q_med">Medium</button>
+      <button class="opt sq-opt" data-v="high" data-i18n="q_high">High</button>
+    </div>
+    <div class="set-row"><label data-i18n="s_master">Master volume</label><input type="range" id="set-master" min="0" max="1" step="0.05"></div>
+    <div class="set-row"><label data-i18n="s_music">Music</label><input type="range" id="set-music" min="0" max="1" step="0.05"></div>
+    <div class="set-row"><label data-i18n="s_sfx">Sounds</label><input type="range" id="set-sfx" min="0" max="1" step="0.05"></div>
+    <div class="set-row"><label data-i18n="s_mute">Mute all</label><label class="switch"><input type="checkbox" id="set-mute"><span class="slider-sw"></span></label></div>
+    <div class="set-row"><label data-i18n="s_cam">Camera sensitivity</label><input type="range" id="set-cam" min="0.4" max="2" step="0.1"></div>
+    <div class="set-row"><label data-i18n="s_vibrate">Vibration</label><label class="switch"><input type="checkbox" id="set-vibrate"><span class="slider-sw"></span></label></div>
+    <div class="set-row"><label data-i18n="s_tutorial">Replay tutorial</label><button class="icon-btn" id="btn-tutorial-replay">▶️</button></div>
+    <div class="set-row"><label data-i18n="s_reset">Reset all settings</label><button class="icon-btn" id="btn-reset-settings">🗑️</button></div>
+    <div class="opt-label" data-i18n="s_privacy">Privacy</div>
+    <div class="privacy-box" data-i18n="s_privacy_t"></div>
+    <div class="version-label"><span data-i18n="s_version">Version</span>: 1.0</div>
+  </div>
+</div>
+
+<!-- ============ GAME ============ -->
+<div class="screen" id="screen-game">
+  <canvas id="gl"></canvas>
+  <div id="hud-top">
+    <div id="hud-world"></div>
+    <div class="hud-chip" id="hud-clock">10:00</div>
+    <div class="hud-chip" id="hud-weather">☀️</div>
+    <button class="hud-btn" id="btn-pause">⏸️</button>
+    <button class="hud-btn" id="btn-speed">⏩1x</button>
+  </div>
+  <button class="tool-btn" id="tb-collapse" style="position:absolute">⋮</button>
+  <div id="toolbar">
+    <button class="tool-btn" id="tb-build" title="Build">🏗️</button>
+    <button class="tool-btn" id="tb-weather" title="Weather">🌦️</button>
+    <button class="tool-btn" id="tb-stats" title="Stats">📊</button>
+    <button class="tool-btn" id="tb-save" title="Save">💾</button>
+    <button class="tool-btn" id="tb-help" title="Help">❓</button>
+    <button class="tool-btn" id="tb-home" title="Home">🏠</button>
+  </div>
+
+  <div class="side-panel" id="panel-build">
+    <h3 data-i18n="build_title">Build Mode</h3>
+    <div class="btabs">
+      <button class="btab sel" data-cat="trees" data-i18n="tab_trees">Trees</button>
+      <button class="btab" data-cat="plants" data-i18n="tab_plants">Plants</button>
+      <button class="btab" data-cat="animals" data-i18n="tab_animals">Animals</button>
+      <button class="btab" data-cat="rocks" data-i18n="tab_rocks">Rocks</button>
+      <button class="btab" data-cat="water" data-i18n="tab_water">Water</button>
+    </div>
+    <div id="build-items"></div>
+    <div style="margin-top:10px"><button class="btn small ghost" id="btn-undo" style="width:100%" data-i18n="undo">Undo</button></div>
+  </div>
+
+  <div class="side-panel" id="panel-weather">
+    <h3 data-i18n="weather">Weather</h3>
+    <div class="wgrid">
+      <button class="wbtn sel" data-w="sunny">☀️ <span data-i18n="w_sunny">Sunny</span></button>
+      <button class="wbtn" data-w="cloudy">☁️ <span data-i18n="w_cloudy">Cloudy</span></button>
+      <button class="wbtn" data-w="rain">🌧️ <span data-i18n="w_rain">Rain</span></button>
+      <button class="wbtn" data-w="fog">🌫️ <span data-i18n="w_fog">Fog</span></button>
+      <button class="wbtn" data-w="wind">💨 <span data-i18n="w_wind">Windy</span></button>
+      <button class="wbtn" data-w="storm">⛈️ <span data-i18n="w_storm">Storm</span></button>
+      <button class="wbtn" data-w="auto">🔄 <span data-i18n="w_auto">Automatic</span></button>
+    </div>
+    <h3 data-i18n="time_of_day">Time of day</h3>
+    <input type="range" id="time-slider" min="0" max="24" step="0.25" value="10">
+    <div style="text-align:center;color:var(--dim);font-size:13px"><span id="time-label">10:00</span></div>
+    <h3 style="margin-top:10px" data-i18n="time_speed">Time speed</h3>
+    <div class="wgrid">
+      <button class="wbtn spd" data-v="0">⏸️</button>
+      <button class="wbtn spd" data-v="1">1x</button>
+      <button class="wbtn spd" data-v="2">2x</button>
+      <button class="wbtn spd" data-v="4">4x</button>
+    </div>
+  </div>
+
+  <div class="side-panel" id="panel-stats">
+    <h3 data-i18n="dash_title">Ecosystem Dashboard</h3>
+    <div id="dash-stats"></div>
+    <div id="dash-sug"></div>
+    <div id="dash-events"></div>
+  </div>
+
+  <div id="place-bar">
+    <span id="place-hint"></span>
+    <button class="btn small" id="btn-place-ok" data-i18n="confirm_place">Place</button>
+    <button class="btn small ghost" id="btn-place-cancel" data-i18n="cancel_place">Cancel</button>
+  </div>
+
+  <div id="entity-card">
+    <div id="ec-name"></div>
+    <div id="ec-bars"></div>
+    <div class="ec-btns">
+      <button class="btn small ghost" id="btn-ec-remove" data-i18n="entity_remove">Remove</button>
+      <button class="btn small ghost" id="btn-ec-close" data-i18n="close">Close</button>
+    </div>
+  </div>
+
+  <div id="goal-card">
+    <b data-i18n="goal_title">Challenge Goal</b>
+    <div id="goal-text"></div>
+    <div class="bar"><div class="fill good" id="goal-fill" style="width:0%"></div></div>
+    <div id="goal-pct" style="font-size:12px;color:var(--dim);margin-top:4px"></div>
+  </div>
+</div>
+
+<!-- ============ OVERLAYS ============ -->
+<div id="loading"><div class="spinner"></div><p data-i18n="loading">Growing your world...</p></div>
+<div id="toast-wrap"></div>
+<div id="modal"><div class="modal-box"><p id="modal-msg"></p><div class="modal-btns"><button class="btn" id="modal-ok">Yes</button><button class="btn ghost" id="modal-cancel">No</button></div></div></div>
+<div id="tutorial"><div class="tut-box"><p id="tut-text"></p><div class="tut-btns"><button class="btn ghost" id="btn-tut-skip">Skip</button><button class="btn" id="btn-tut-next">Next</button></div></div></div>
+
+<script src="three.min.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/sim.js"></script>
+<script src="js/save.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+<script>
+// help content (uses current lang)
+(function () {
+  function renderHelp() {
+    var L = RL.getLang();
+    var items = L === 'hi' ? [
+      ['🎥 कैमरा', 'एक उँगली से ड्रैग करके घुमाएँ, पिंच करके ज़ूम करें, दो उँगलियों से पैन करें। दो बार टैप करने से कैमरा केंद्र में आता है।'],
+      ['🏗️ निर्माण', 'निर्माण पैनल खोलें, कोई वस्तु चुनें, ज़मीन पर टैप करें और रखें। लाल रंग का अर्थ है वहाँ नहीं रख सकते।'],
+      ['🌱 पौधे', 'पौधे धूप और पानी से बढ़ते हैं। वर्षा जल बढ़ाती है। अस्वस्थ पौधों को पानी दें।'],
+      ['🐾 पशु', 'पशु स्वयं घूमते हैं, भोजन-पानी खोजते हैं और रात में आराम करते हैं। स्वस्थ पशुओं के बच्चे होते हैं।'],
+      ['🌦️ मौसम व समय', 'मौसम पैनल से वर्षा, कोहरा, तूफ़ान चुनें। समय स्लाइडर से दिन-रात बदलें।'],
+      ['📊 स्वास्थ्य', 'डैशबोर्ड में पारिस्थितिकी स्वास्थ्य देखें और सुझावों का पालन करें।'],
+      ['💾 सहेजना', 'दुनिया हर 60 सेकंड में स्वतः सहेजी जाती है। मेरी दुनियाएँ में जाकर लोड, नाम बदलें या हटाएँ।']
+    ] : [
+      ['🎥 Camera', 'Drag with one finger to orbit, pinch to zoom, two fingers to pan. Double-tap recenters.'],
+      ['🏗️ Building', 'Open the Build panel, pick an item, tap the land, then confirm. Red means invalid placement.'],
+      ['🌱 Plants', 'Plants grow with sunlight and water. Rain raises water. Water unhealthy plants.'],
+      ['🐾 Animals', 'Animals roam, seek food and water, and rest at night. Healthy animals have babies.'],
+      ['🌦️ Weather & time', 'Pick rain, fog or storm in the Weather panel. Slide time for day and night.'],
+      ['📊 Health', 'Watch ecosystem health in the Dashboard and follow its suggestions.'],
+      ['💾 Saving', 'Worlds autosave every 60 seconds. Load, rename or delete them in My Worlds.']
+    ];
+    document.getElementById('help-content').innerHTML = items.map(function (it) {
+      return '<div class="help-sec"><b>' + it[0] + '</b><p>' + it[1] + '</p></div>';
+    }).join('');
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    renderHelp();
+    var orig = RL.setLang;
+    RL.setLang = function (l) { orig(l); if (document.getElementById('screen-help').classList.contains('active')) renderHelp(); };
+  });
+})();
+</script>
+</body>
+</html>
